@@ -9,7 +9,7 @@ files = []
 keyword = 'null'
 resolution = 10
 #from SorterMain import keyword, resolution
-def fileLookupFunc(keyword):
+def fileLookupFunc():
     firstLevel = 'C:\\CSVFiles\\Sources'
     
     for i in os.listdir(firstLevel):
@@ -25,4 +25,4 @@ def fileLookupFunc(keyword):
                            # print (thirdLevel + '\\' + k)
                             newPath = (thirdLevel + '\\' + k)
                             files.append(newPath)
-fileLookupFunc(keyword)
+fileLookupFunc()

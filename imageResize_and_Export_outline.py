@@ -8,33 +8,11 @@ Created on Thu Mar 30 23:11:53 2017
 import cv2
 import csv
 import numpy as np
-from organizer import newfiles
+from organizer import newdestPath
+
 fileSource = []
 np.set_printoptions(threshold=np.inf)
-a = 10
-BLACK = [0,0,0]
-imgPath = 'C:\\CSVFiles\\SourcePics\\jpegs\\porsche-thumbwhite'
-imgEdgesMap = (imgPath + 'edges.png')
-img = cv2.imread(imgPath + '.jpg')
-gray1 = cv2.Canny(img, 200, 200)
 
-cv2.imwrite(imgEdgesMap, gray1)
-img2 = cv2.imread(imgEdgesMap)    
-
-numRows = len(img)
-numCols = len(img[0])
-
-if numRows > numCols:
-    squareSize = numRows
-    topBottom = (squareSize - numCols)/2
-    squareEdgesFull = cv2.copyMakeBorder(img2,0,0,topBottom,topBottom, cv2.BORDER_CONSTANT, value=BLACK)
-    cv2.imwrite(imgEdgesMap, squareEdgesFull)
-    
-else:
-    squareSize = numCols
-    topBottom = (squareSize - numRows)/2
-    squareEdgesFull = cv2.copyMakeBorder(img2,topBottom,topBottom,0,0, cv2.BORDER_CONSTANT, value=BLACK)
-    cv2.imwrite(imgEdgesMap, squareEdgesFull)
 
 def csvWriter():
     img3 = cv2.imread(dst2)
@@ -58,12 +36,41 @@ def csvWriter():
                 writeToCsv.writerow([((c2)-column),((r2)-row)])
                 break    
     imgPathCSV.close
-while a<=50:
-    dst2 = (imgPath + '_' + str(a) +'pixels' + '.png')
-    dsize = (a,a)
-    small = cv2.resize(img2,dsize, interpolation= cv2.INTER_AREA)
-    cv2.imwrite (dst2, small)
+
+
+for n in newdestPath:
+    BLACK = [0,0,0]
+    imgPath = n
+    a = 10
+    imgEdgesMap = (imgPath + 'edges.png')
+    img = cv2.imread(imgPath)
+    gray1 = cv2.Canny(img, 200, 200)
+    dst2 = (imgPath + '_' + str(a) + 'pixels' + '.png')
+    cv2.imwrite(imgEdgesMap, gray1)
+    img2 = cv2.imread(imgEdgesMap)    
     img3 = cv2.imread(dst2)
-    fileSource.append((imgPath + '_' + str(a) +'pixels' + '.csv'))
-    csvWriter()
-    a+=10
+    numRows = len(img)
+    numCols = len(img[0])
+    
+    if numRows > numCols:
+        squareSize = numRows
+        topBottom = (squareSize - numCols)/2
+        squareEdgesFull = cv2.copyMakeBorder(img2,0,0,topBottom,topBottom, cv2.BORDER_CONSTANT, value=BLACK)
+        cv2.imwrite(imgEdgesMap, squareEdgesFull)
+        
+    else:
+        squareSize = numCols
+        topBottom = (squareSize - numRows)/2
+        squareEdgesFull = cv2.copyMakeBorder(img2,topBottom,topBottom,0,0, cv2.BORDER_CONSTANT, value=BLACK)
+        cv2.imwrite(imgEdgesMap, squareEdgesFull)
+    
+    
+    while a<=50:
+        dst2 = (imgPath + '_' + str(a) + 'pixels' + '.png')
+        dsize = (a,a)
+        small = cv2.resize(img2,dsize, interpolation= cv2.INTER_AREA)
+        cv2.imwrite (dst2, small)
+        img3 = cv2.imread(dst2)
+        fileSource.append((imgPath + '_' + str(a) +'pixels' + '.csv'))
+        csvWriter()
+        a+=10

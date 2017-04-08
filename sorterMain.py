@@ -11,11 +11,21 @@ pathlookout = 'C:\\Users\\samir\\Documents\\GitHub\\FileLookout\\fileLookout.py'
 import csv
 import math
 import fileLookout as flt
-#from fileLookout import files
+from fileLookout import files
 from imageResize_and_Export_outline import fileSource
+from tkFileDialog import askdirectory,askopenfilename
 #files=[]
 
-keyword = 'porche911'
+def loadCorpus(self):       #this will ask for the directory
+        path = tkFileDialog.askdirectory()
+        if not path:
+            return
+        self.loadFileList(path)
+        self.displayItems()
+        self.displayRows()
+        
+
+keyword = 'null'
 resolution = 50
 exactRes = (resolution/10)-1
 sourceArray = []

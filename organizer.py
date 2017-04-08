@@ -10,6 +10,7 @@ import shutil
 newfiles = []
 keyword = 'jpegs'
 resolution = 10
+newdestPath=[]
 #from SorterMain import keyword, resolution
 def fileOrganizerFunc(keyword):
     firstLevel = 'C:\\CSVFiles\\SourcePics'
@@ -23,9 +24,24 @@ def fileOrganizerFunc(keyword):
             for j in os.listdir(secondLevel):
                 thirdLevel = (secondLevel + '\\' + j)
                 print thirdLevel
-                newdestPath = (firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_\\' + 'unknownItem_' + str(z) + '_.jpg' )
-                os.makedirs((firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_'))
+                directory = ((firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_'))
+                while os.path.exists(directory) == True:
+                    z+=1
+                    directory = ((firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_'))
+                newdestPath = (directory + '\\' + 'unknownItem_' + str(z) + '_.jpg' )
+                os.makedirs(directory)
                 shutil.move(thirdLevel, newdestPath)            
-                newfiles.append(newdestPath)
-                z+=1
+                #newfiles.append(newdestPath)
 fileOrganizerFunc(keyword)
+def jpgFinder():
+    firstLevel = 'C:\\CSVFiles\\SourcePics'
+    secondLevel ='null'
+    thirdLevel ='null'
+    Newdirectory = (firstLevel + '\\' + 'sourceFolders')
+    for i in os.listdir(Newdirectory):
+        secondLevel = (Newdirectory + '\\' + i)
+        for j in os.listdir(secondLevel):
+            thirdLevel = (secondLevel + '\\' + j)
+            #print thirdLevel
+            newdestPath.append(thirdLevel)
+jpgFinder()           
