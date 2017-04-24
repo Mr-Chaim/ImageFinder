@@ -4,44 +4,33 @@ Created on Fri Apr 07 06:32:10 2017
 
 @author: samir
 """
+'''
 
+ serves as the start of the training module, 
+ after you select the origin, 
+ the script will move all of the images from originDir[variables] to a new folder with an Unknown name for transparency purposes.
+
+
+'''
 import os
 import shutil
-newfiles = []
-keyword = 'jpegs'
-resolution = 10
-newdestPath=[]
-#from SorterMain import keyword, resolution
-def fileOrganizerFunc(keyword):
-    firstLevel = 'C:\\CSVFiles\\SourcePics'
-    secondLevel ='null'
-    thirdLevel ='null'
-    newdestPath='null'
-    z = 1
-    for i in os.listdir(firstLevel):
-        if (i.find(keyword) != -1) or keyword == 'null':
-            secondLevel = (firstLevel + '\\' + i)
-            for j in os.listdir(secondLevel):
-                thirdLevel = (secondLevel + '\\' + j)
-                print thirdLevel
-                directory = ((firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_'))
-                while os.path.exists(directory) == True:
-                    z+=1
-                    directory = ((firstLevel + '\\' + 'sourceFolders' + '\\' + 'unknownItem_' + str(z) + '_'))
-                newdestPath = (directory + '\\' + 'unknownItem_' + str(z) + '_.jpg' )
-                os.makedirs(directory)
-                shutil.move(thirdLevel, newdestPath)            
-                #newfiles.append(newdestPath)
-fileOrganizerFunc(keyword)
-def jpgFinder():
-    firstLevel = 'C:\\CSVFiles\\SourcePics'
-    secondLevel ='null'
-    thirdLevel ='null'
-    Newdirectory = (firstLevel + '\\' + 'sourceFolders')
-    for i in os.listdir(Newdirectory):
-        secondLevel = (Newdirectory + '\\' + i)
-        for j in os.listdir(secondLevel):
-            thirdLevel = (secondLevel + '\\' + j)
-            #print thirdLevel
-            newdestPath.append(thirdLevel)
-jpgFinder()           
+from variables import originDir, firstLevel, jpegArray, typeOsource
+
+#changes the name of the files to Unknown_N and moves them to the folder firstLevel \\ typeSource
+z = 1
+for i in os.listdir(originDir):
+    if (i.find('.jpg') != -1):
+        jpegArray.append(originDir + '\\' + i)
+if os.path.isdir(firstLevel+'\\'+typeOsource) != True:
+    os.makedirs(firstLevel+'\\'+typeOsource)
+
+for s in jpegArray:
+    directory = ((firstLevel + '\\' + typeOsource + '\\' + 'unknownItem_' + str(z) + '_.jpg'))
+    if os.path.isfile(directory) != True:
+        shutil.move(s, directory)
+    else:
+        while os.path.isfile(directory) == True:
+            z+=1
+            directory = ((firstLevel + '\\' + typeOsource + '\\' + 'unknownItem_' + str(z) + '_.jpg'))
+        shutil.move(s, directory)          
+    print directory

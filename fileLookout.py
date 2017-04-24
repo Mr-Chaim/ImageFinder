@@ -5,16 +5,14 @@ Created on Fri Apr 07 00:42:01 2017
 @author: samir
 """
 import os
-files = []
-keyword = 'null'
-resolution = 10
-#from SorterMain import keyword, resolution
+from variables import files, keyword, resolution
+
 def fileLookupFunc():
-    firstLevel = 'C:\\CSVFiles\\Sources'
+    firstLevelLookup = 'C:\\CSVFiles\\Sources'
     
-    for i in os.listdir(firstLevel):
+    for i in os.listdir(firstLevelLookup):
         if (i.find(keyword) != -1) or keyword == 'null':
-            secondLevel = (firstLevel + '\\' + i)
+            secondLevel = (firstLevelLookup + '\\' + i)
             
             for j in os.listdir(secondLevel):
                 if j.find(('RES_'+ str(resolution))) != -1:

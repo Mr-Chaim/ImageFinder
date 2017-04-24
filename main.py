@@ -7,14 +7,9 @@ Created on Fri Apr 07 20:47:25 2017
 
 
 import os
-#import tkinter
 import Tkinter
-#import TK
 import tkFileDialog
-fileSource = []
-secondLevel = 'null'
-fileSourcePath ='null'
-keyword2 = '.csv'
+
 
 def __init__(self, root):
     self.dir_opt = options = {}

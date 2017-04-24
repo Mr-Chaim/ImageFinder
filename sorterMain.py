@@ -14,7 +14,6 @@ import fileLookout as flt
 from fileLookout import files
 from imageResize_and_Export_outline import fileSource
 from tkFileDialog import askdirectory,askopenfilename
-#files=[]
 
 def loadCorpus(self):       #this will ask for the directory
         path = tkFileDialog.askdirectory()
@@ -25,10 +24,7 @@ def loadCorpus(self):       #this will ask for the directory
         self.displayRows()
         
 
-keyword = 'null'
-resolution = 50
-exactRes = (resolution/10)-1
-sourceArray = []
+
 flt.fileLookupFunc(keyword)
 def saveSource():
     with open(fileSource[exactRes]) as sourceCSV:
@@ -46,7 +42,6 @@ def probFinder():
             if finalPotential<=currentProbability:
                 finalPotential = currentProbability
                 fFinal = f
-            #print (f + " " + str(currentProbability))
             instantProbability = 0
             currentProbability = 0
             g = 0
